@@ -1,13 +1,8 @@
 [![StepSecurity Maintained Action](https://raw.githubusercontent.com/step-security/maintained-actions-assets/main/assets/maintained-action-banner.png)](https://docs.stepsecurity.io/actions/stepsecurity-maintained-actions)
 
-# zizmor-action 🌈
+# zizmor-action
 
 Run [`zizmor`] from GitHub Actions!
-
-> [!WARNING]
-> This action is ready for public use, but it is still in early development.
-> Please report any issues you encounter, and be aware that backwards
-> incompatible changes may be made until a stable version is released.
 
 ## Table of Contents
 
@@ -82,12 +77,12 @@ jobs:
       actions: read # only needed for private or internal repos
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
 
       - name: Run zizmor 🌈
-        uses: step-security/zizmor-action@192e21d79ab29983730a13d1382995c2307fbcaa # v0.5.7
+        uses: step-security/zizmor-action@v1
 ```
 
 ### Usage without Github Advanced Security
@@ -117,12 +112,12 @@ jobs:
       actions: read # only needed for private or internal repos
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
 
       - name: Run zizmor 🌈
-        uses: step-security/zizmor-action@192e21d79ab29983730a13d1382995c2307fbcaa # v0.5.7
+        uses: step-security/zizmor-action@v1
         with:
           advanced-security: false
 ```
@@ -142,7 +137,7 @@ repositories:
 
 ```yaml
 - name: Run zizmor 🌈
-  uses: step-security/zizmor-action@192e21d79ab29983730a13d1382995c2307fbcaa # v0.5.7
+  uses: step-security/zizmor-action@v1
   with:
     inputs: |
       .github/workflows/fishy.yml
