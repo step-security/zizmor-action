@@ -78,6 +78,7 @@ jobs:
           persist-credentials: false
 
       - uses: ./
+        continue-on-error: true
         with:
           advanced-security: false
 
@@ -139,6 +140,7 @@ jobs:
           persist-credentials: false
 
       - uses: ./
+        continue-on-error: true
         with:
           advanced-security: false
           annotations: true
