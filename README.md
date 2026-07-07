@@ -336,10 +336,6 @@ but this is **not officially supported** by this action.
 > This is **not** a bug in `zizmor-action` or `zizmor`. It's a quirk of
 > GitHub's handling of SARIF in their Advanced Security feature.
 
-As reported in [#43], GitHub's "Advanced Security" integration is somewhat
-fickle about when it decides to show checks on PRs for code scanning
-alerts.
-
 GitHub's criteria for displaying a check on a PR is documented
 under [SARIF support for code scanning] and
 [Triaging code scanning alerts in pull requests]. The short version is that the
@@ -374,7 +370,6 @@ If you hit this behavior, you have a few options:
 [Using personas]: https://docs.zizmor.sh/usage/#using-personas
 [Filtering results]: https://docs.zizmor.sh/usage/#filtering-results
 [docker/setup-docker-action]: https://github.com/docker/setup-docker-action
-[#43]: https://github.com/step-security/zizmor-action/issues/43
 [SARIF support for code scanning]: https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning#specifying-the-location-for-source-files
 [Triaging code scanning alerts in pull requests]: https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/triaging-code-scanning-alerts-in-pull-requests?utm_source=chatgpt.com#about-code-scanning-results-on-pull-requests
 [ruleset]: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets#set-code-scanning-merge-protection
