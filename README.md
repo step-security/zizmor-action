@@ -82,7 +82,7 @@ jobs:
           persist-credentials: false
 
       - name: Run zizmor 🌈
-        uses: step-security/zizmor-action@v1
+        uses: step-security/zizmor-action@v0
 ```
 
 ### Usage without Github Advanced Security
@@ -117,7 +117,7 @@ jobs:
           persist-credentials: false
 
       - name: Run zizmor 🌈
-        uses: step-security/zizmor-action@v1
+        uses: step-security/zizmor-action@v0
         with:
           advanced-security: false
 ```
@@ -137,7 +137,7 @@ repositories:
 
 ```yaml
 - name: Run zizmor 🌈
-  uses: step-security/zizmor-action@v1
+  uses: step-security/zizmor-action@v0
   with:
     inputs: |
       .github/workflows/fishy.yml
