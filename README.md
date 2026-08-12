@@ -11,13 +11,18 @@ Run [`zizmor`] from GitHub Actions!
   - [Usage without Github Advanced Security](#usage-without-github-advanced-security)
 - [Inputs](#inputs)
   - [`inputs`](#inputs)
+  - [`collect`](#collect)
   - [`online-audits`](#online-audits)
+  - [`persona`](#persona)
+  - [`min-severity`](#min-severity)
+  - [`min-confidence`](#min-confidence)
   - [`version`](#version)
   - [`token`](#token)
   - [`advanced-security`](#advanced-security)
   - [`annotations`](#annotations)
   - [`color`](#color)
   - [`config`](#config)
+  - [`fail-on-no-inputs`](#fail-on-no-inputs)
 - [Outputs](#outputs)
 - [Permissions](#permissions)
 - [Troubleshooting](#troubleshooting)
@@ -146,6 +151,15 @@ repositories:
 ```
 
 See `zizmor`'s [Input collection] documentation for more information.
+
+### `collect`
+
+*Default*: `default`
+
+`collect` controls `zizmor`'s input collection mode.
+
+See `zizmor`'s [Input collection] documentation for more information
+on the valid modes.
 
 ### `online-audits`
 

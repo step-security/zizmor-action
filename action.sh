@@ -62,6 +62,7 @@ elif [[ "${GHA_ZIZMOR_ANNOTATIONS}" == "true" ]]; then
     arguments+=("--format=github")
 fi
 
+[[ -n "${GHA_ZIZMOR_COLLECT}" ]] && arguments+=("--collect=${GHA_ZIZMOR_COLLECT}")
 [[ "${GHA_ZIZMOR_ONLINE_AUDITS}" == "true" ]] || arguments+=("--no-online-audits")
 [[ -n "${GHA_ZIZMOR_MIN_SEVERITY}" ]] && arguments+=("--min-severity=${GHA_ZIZMOR_MIN_SEVERITY}")
 [[ -n "${GHA_ZIZMOR_MIN_CONFIDENCE}" ]] && arguments+=("--min-confidence=${GHA_ZIZMOR_MIN_CONFIDENCE}")
@@ -82,6 +83,10 @@ if [[ -z "${digest}" ]]; then
 fi
 
 image="ghcr.io/zizmorcore/zizmor:${normalized_version}@${digest}"
+
+echo "::group::Pulling zizmor image"
+docker pull "${image}"
+echo "::endgroup::"
 
 # Notes:
 # - We run the container with ${GITHUB_WORKSPACE} mounted as /workspace

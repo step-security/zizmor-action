@@ -17,7 +17,11 @@ permissions: {}
 jobs:
   selftest:
     name: "TEST: basic selftest"
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        os: ${{ github.actor == 'dependabot[bot]' && fromJSON('["ubuntu-latest"]') || fromJSON('["ubuntu-latest", "ubuntu-24.04-arm"]') }}
+    runs-on: ${{ matrix.os }}
     permissions:
       security-events: write
 
@@ -27,7 +31,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -46,7 +50,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -64,7 +68,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -93,7 +97,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -111,7 +115,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -140,7 +144,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -170,7 +174,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -189,7 +193,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -218,7 +222,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -247,7 +251,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -271,7 +275,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -285,6 +289,29 @@ jobs:
           jq < "${OUTPUT_FILE}"
         env:
           OUTPUT_FILE: ${{ steps.zizmor.outputs.output-file }}
+
+  selftest-collect:
+    name: "TEST: 'collect: actions` only collections action inputs"
+    runs-on: ubuntu-latest
+    permissions: {}
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: ./
+        id: zizmor
+        with:
+          advanced-security: false
+          collect: actions
+
+      # TODO: Would be nice to grep the input or similar here to confirm we only collected `./action.yml`.
 
   all-selftests-pass:
     if: always()
@@ -301,6 +328,7 @@ jobs:
       - selftest-fail-on-no-inputs-xfail
       - selftest-fail-on-no-inputs-disabled
       - selftest-output-file-output-is-present-when-advanced-security
+      - selftest-collect
 
     runs-on: ubuntu-latest
 

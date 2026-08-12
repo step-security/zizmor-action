@@ -19,6 +19,15 @@ inputs:
       be split with shell splitting rules.
     required: false
     default: "."
+  collect:
+    description: |
+      The collection mode to use.
+
+      This can be 'all', 'default' (default), 'workflows', 'actions', or 'dependabot'.
+
+      See https://docs.zizmor.sh/usage/#input-collection for more information.
+    required: false
+    default: 'default'
   online-audits:
     description: |
       Whether to run online audits.
@@ -145,6 +154,7 @@ runs:
         "${GITHUB_ACTION_PATH}/action.sh"
       env:
         GHA_ZIZMOR_INPUTS: ${{ inputs.inputs }}
+        GHA_ZIZMOR_COLLECT: ${{ inputs.collect }}
         GHA_ZIZMOR_ONLINE_AUDITS: ${{ inputs.online-audits }}
         GHA_ZIZMOR_PERSONA: ${{ inputs.persona }}
         GHA_ZIZMOR_MIN_SEVERITY: ${{ inputs.min-severity }}
@@ -159,7 +169,7 @@ runs:
       shell: bash
 
     - name: Upload SARIF file to GitHub Advanced Security
-      uses: github/codeql-action/upload-sarif@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a # v4.36.3
+      uses: github/codeql-action/upload-sarif@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
       if: ${{ inputs.advanced-security == 'true' }}
       with:
         sarif_file: ${{ steps.run-zizmor.outputs.sarif-file }}
