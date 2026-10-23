@@ -1,0 +1,12 @@
+{
+  "$comment": "Managed automatically when syncing with upstream. Do not edit by hand.",
+  "schema_version": 1,
+  "onboarding_type": "copied",
+  "action_type": "composite",
+  "upstream": {
+    "repository": "zizmorcore/zizmor-action",
+    "synced_tag": "v0.7.1",
+    "synced_commit": "85b2b9fb8e3325e7a23d7d0a9d7ba5ae0f999e3e",
+    "archived": false
+  }
+}
