@@ -1,4 +1,5 @@
 name: zizmor-action
+author: step-security
 description: Run zizmor from GitHub Actions 🌈
 
 branding:
@@ -53,7 +54,11 @@ inputs:
       This can be 'unknown', 'low', 'medium', or 'high'.
     required: false
   version:
-    description: The version of zizmor to use
+    description: |
+      The version of zizmor to use.
+
+      Either an exact `X.Y.Z` version or `latest` (the default), i.e. the
+      newest zizmor release this action knows about.
     required: false
     default: latest
   token:
@@ -169,7 +174,7 @@ runs:
       shell: bash
 
     - name: Upload SARIF file to GitHub Advanced Security
-      uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+      uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
       if: ${{ inputs.advanced-security == 'true' }}
       with:
         sarif_file: ${{ steps.run-zizmor.outputs.sarif-file }}
