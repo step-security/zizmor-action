@@ -224,12 +224,16 @@ See `zizmor`'s [Filtering results] documentation for more information.
 
 *Default*: `latest`
 
-`version` is the version of `zizmor` to use. It must be provided as
-either an exact version (e.g. `v1.7.0`) or the special value `latest`,
-which uses the newest `zizmor` release this action knows about.
+`version` is the version of `zizmor` to use. It accepts:
+
+- An exact version (e.g. `v1.7.0` or `v1.7.0rc1`).
+- `latest` (the default), which uses the newest stable release this action knows about.
+- `prerelease`, which uses the newest prerelease this action knows about.
+
+`prerelease` selects a prerelease even if a newer stable release exists.
 
 > [!NOTE]
-> You can specify `version` with or without the `v` prefix.
+> You can specify exact versions with or without the `v` prefix.
 > For example, `v1.7.0` and `1.7.0` are both valid and equivalent.
 
 ### `token`
@@ -344,6 +348,17 @@ own runners provide Python.
 If you see this error, it _probably_ means that you are running the action
 from a self-hosted runner without Python installed. Install Python onto the
 runner, or make sure it is on `PATH` by the time this action runs.
+
+### "No module named pip"
+
+This action currently uses `python3 -m pip download` to bootstrap zizmor,
+meaning that your Python distribution must also already have pip set up
+(as is the default).
+
+If you see this or a similar error, it means you have Python 3 installed as
+`python3`, but your Python 3 distribution lacks `pip`. The solution
+is to install `pip`, potentially either via a new Python distribution
+(e.g. `actions/setup-python`) _or_ via `python3 -m ensurepip`.
 
 ### Changes introduce security alerts but no PR checks are shown
 
